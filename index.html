@@ -78,8 +78,13 @@ input[type="number"]{-moz-appearance:textfield}
 .section{background:#fff;border-radius:25px;padding:20px 22px;box-shadow:0 4px 16px rgba(22,83,41,.08);margin-bottom:14px}
 .heading{display:flex;gap:10px;align-items:center;margin:0 0 16px;font-size:25px;font-weight:950;color:var(--green-deep)}
 .heading .icon{font-size:28px}
+.inventory-heading{position:relative;padding-right:48px}
+.add-card-btn{position:absolute;right:0;top:50%;transform:translateY(-50%);width:40px;height:40px;border:1px solid #d7dfd9;border-radius:50%;background:#fff;color:#111;font-size:30px;font-weight:950;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(20,70,35,.12);cursor:pointer}
+.add-card-btn:hover{background:#f3faf4}.add-card-btn:active{transform:translateY(-50%) scale(.96)}
 .status-grid{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
 .field{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:800}
+.countdown-note{margin:10px 0 0;padding:7px 10px;border-radius:10px;background:#eef9f0;color:#39704b;font-size:12px;line-height:1.5;font-weight:750}
+.countdown-note::before{content:"⏱ ";color:#139749}
 .select,.small-input,.count-input,.time-input{
   height:42px;border:1px solid #ced8d0;border-radius:10px;background:#fff;text-align:center;color:#1f3024;outline:none
 }
@@ -89,9 +94,10 @@ input[type="number"]{-moz-appearance:textfield}
 .unit{font-size:17px;font-weight:700}
 
 .card-list{display:flex;flex-direction:column;border-top:1px solid #f0f2ef}
-.card-row{display:grid;grid-template-columns:84px 150px 146px 224px;align-items:center;gap:10px;min-height:64px;padding:10px 0;border-bottom:1px solid #eef2ee}
+.card-row{display:grid;grid-template-columns:84px 150px 146px minmax(190px,1fr) 34px;align-items:center;gap:10px;min-height:64px;padding:10px 0;border-bottom:1px solid #eef2ee}
 .card-main{display:contents}
 .card-row:last-child{border-bottom:none}
+.card-row.group-end{border-bottom:2px solid #d6e0d8}
 .cardname{font-size:18px;font-weight:800;color:#18281d}
 .stepper{display:flex;align-items:center;justify-content:center;height:40px}
 .mini-btn{width:34px;height:40px;border:1px solid #dbe4dc;background:#f6f6f6;color:#56635b;font-size:24px;line-height:1}
@@ -102,6 +108,26 @@ input[type="number"]{-moz-appearance:textfield}
 .expiry .label{font-size:15px;font-weight:700;color:#51635a;margin-right:2px}
 .time-input{width:50px;font-size:17px;font-weight:500}
 .expiry .unit{font-size:15px;font-weight:700;color:#51635a}
+.delete-row-btn{width:32px;height:32px;border:0;border-radius:50%;background:#f5f7f5;color:#7c8980;font-size:24px;line-height:1;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.delete-row-btn:hover{background:#ffeaea;color:#d84444}.delete-row-btn:active{transform:scale(.94)}
+
+.strategy-box{margin:14px 0 12px;padding:14px 15px;border:1px solid #dcefe0;border-radius:17px;background:linear-gradient(180deg,#fbfffc,#f3fbf4)}
+.strategy-title{font-size:17px;font-weight:950;color:#12733d;margin-bottom:10px}
+.strategy-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.strategy-option{position:relative;display:block;cursor:pointer}
+.strategy-option input{position:absolute;opacity:0;pointer-events:none}
+.strategy-option span{display:flex;min-height:58px;padding:8px 10px;border:1px solid #d6e5d8;border-radius:13px;background:#fff;align-items:center;justify-content:center;text-align:center;font-size:14px;line-height:1.35;font-weight:850;color:#38513f}
+.strategy-option input:checked+span{border-color:#21a853;background:#eaf9ee;color:#08743a;box-shadow:0 0 0 2px rgba(33,168,83,.12)}
+.strategy-option input:disabled+span{border-color:#e1e5e2;background:#f1f3f1;color:#9aa39c;box-shadow:none;filter:grayscale(1)}
+.strategy-option:has(input:disabled){cursor:not-allowed}
+.advanced-toggle{width:100%;margin-top:10px;padding:8px 10px;border:0;background:transparent;color:#267649;font-size:14px;font-weight:850;cursor:pointer}
+.advanced-panel{display:none;margin-top:5px;padding-top:11px;border-top:1px dashed #cfe2d2;gap:12px;align-items:center;flex-wrap:wrap}
+.advanced-panel.open{display:flex}.advanced-panel label{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:750;color:#33493a}.advanced-panel input[type="checkbox"]{width:19px;height:19px;accent-color:#15984d}.advanced-panel .small-input{height:38px;width:62px}
+
+.result-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,calc((100% - 24px)/4 - 3ch))) minmax(0,calc((100% - 24px)/4 + 9ch));gap:8px;margin:12px 0}
+.metric{padding:9px 6px;border:1px solid #dcecdf;border-radius:12px;background:#f8fcf8;text-align:center}.metric-value{display:block;color:#0d833f;font-size:18px;font-weight:950}.metric-label{display:block;margin-top:2px;color:#607166;font-size:11px;font-weight:750}
+.recommend-reason{display:none;margin:8px 0 12px;padding:9px 12px;border-radius:12px;background:#fff9e8;color:#725a16;font-size:13px;line-height:1.5;font-weight:750}.recommend-reason.show{display:block}
+.day-group{margin:10px 0 15px}.day-heading{display:flex;align-items:center;gap:8px;margin:0 0 6px -35px;padding:7px 11px;border-radius:12px;background:#eaf8ed;color:#08723a;font-size:15px;font-weight:950}.day-heading small{font-size:11px;color:#557461;font-weight:750}
 
 .ticket{position:relative;width:70px;height:42px;border-radius:8px;transform:rotate(-8deg);border:2px solid rgba(255,255,255,.95);outline:1px solid var(--tc);background:linear-gradient(135deg,color-mix(in srgb,var(--tc) 80%, white 20%),var(--tc));box-shadow:0 2px 6px rgba(0,0,0,.15);color:#fff;font-weight:900;display:flex;flex-direction:column;justify-content:center;align-items:center;line-height:1.02;font-size:12px;text-shadow:0 1px 0 rgba(0,0,0,.12)}
 .ticket::before,.ticket::after{content:"";position:absolute;top:16px;width:9px;height:9px;border-radius:50%;background:#fff}
@@ -129,6 +155,7 @@ input[type="number"]{-moz-appearance:textfield}
 .step{position:relative;padding:8px 0 10px;border-bottom:1px dashed #e4ece5}.step:last-child{border-bottom:none}
 .marker{position:absolute;left:-43px;top:7px;width:32px;height:32px;border-radius:50%;background:linear-gradient(180deg,#58c548,#19a046);color:#fff;font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center}
 .step-main{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:16px;color:#15261a;font-weight:800}.when{font-weight:900}.mini-card{display:inline-flex;align-items:center;gap:7px;padding:4px 10px 4px 6px;border-radius:10px;background:#f4f6f4}.count-green{color:#0f9b46;font-weight:950;font-size:16px}.hint{margin-left:auto;font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;background:#fff3e6;color:#c96d0c;white-space:nowrap}.hint.alt{background:#eef4ff;color:#2967d1}.hint.ok{background:#eaf9ee;color:#12914b}.hint.rule{background:#f2ebff;color:#7946c8}
+.mini-card.is-double{background:#faf1d6}
 .step-explain{margin-top:7px;border-radius:16px;background:#f9fcf9;padding:8px 12px;font-size:14px;line-height:1.55;color:#2a392e}.step-explain strong{font-size:14px;color:#1d1d1d;font-weight:900}
 .empty{padding:20px 14px;border-radius:16px;background:#f8fcf8;color:#738376;font-size:14px}
 
@@ -142,8 +169,32 @@ input[type="number"]{-moz-appearance:textfield}
 .dialog{background:#fff;border-radius:22px;box-shadow:0 18px 40px rgba(0,0,0,.25);width:780px;max-height:88vh;overflow:auto;padding:24px 26px 18px}
 .dialog h2{margin:0 0 12px;color:#12723f;font-size:28px}.dialog p,.dialog li{line-height:1.78;font-size:15px;color:#243228}.dialog ul{margin:0 0 10px 0;padding-left:20px}.formula{background:#f6fbf6;border:1px solid #dcefe0;padding:10px 14px;border-radius:14px;font-weight:800;color:#2a3a2e}
 .modal-actions{display:flex;justify-content:flex-end;align-items:center;gap:10px;margin-top:16px}.primary-btn{border:none;border-radius:12px;font-weight:900;height:44px;padding:0 18px;background:#13984d;color:#fff}.icon-help{background:none;border:none;color:#d84848;font-size:28px;font-weight:900;line-height:1;padding:0 4px}
+.add-card-dialog{width:680px}
+.add-card-dialog>p{margin:0 0 14px;color:#536159}
+.add-card-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.add-card-option{position:relative;display:flex;align-items:center;gap:10px;min-width:0;padding:9px 12px;border:1px solid #dbe7dd;border-radius:14px;background:#f9fcf9;cursor:pointer}
+.add-card-option:has(input:checked){border-color:#36ad5d;background:#effaf1;box-shadow:0 0 0 2px rgba(54,173,93,.12)}
+.add-card-option.is-added{opacity:.55;cursor:default}
+.add-card-option input{width:20px;height:20px;accent-color:#15984d;flex:0 0 auto}
+.add-card-option img{width:46px;height:46px;object-fit:contain;flex:0 0 auto}
+.add-card-option .option-name{min-width:0;font-size:15px;font-weight:850;color:#1c3022;white-space:nowrap}
+.add-card-option .added-mark{margin-left:auto;font-size:12px;font-weight:800;color:#277846}
+.delete-dialog{width:420px;text-align:center;padding:28px 30px 22px}
+.delete-dialog h2{color:#26342b}
+.delete-dialog p{margin:8px 0 4px;font-size:16px;color:#4f5f55}
+.delete-dialog .modal-actions{justify-content:center;margin-top:22px}
+.danger-btn{border:none;border-radius:12px;font-weight:900;height:44px;padding:0 22px;background:#db4f4f;color:#fff}
 .image-dialog{background:#fff;border-radius:20px;padding:14px;max-width:500px;max-height:90vh;box-shadow:0 18px 40px rgba(0,0,0,.25)}.image-dialog img{display:block;max-width:100%;max-height:calc(90vh - 70px);border-radius:12px}.image-dialog .modal-actions{margin-top:12px}.secondary-btn{border:none;border-radius:12px;font-weight:900;height:44px;padding:0 18px;background:#eef7f0;color:#136f3c}
 .foot{margin-top:10px;text-align:center;font-size:12px;color:#588060}
+.intro-card{display:flex;align-items:center;justify-content:flex-start;margin:8px 0 12px;padding:6px 22px;border:2px solid rgba(104,194,96,.58);border-radius:24px;background:rgba(255,255,255,.96);box-shadow:0 10px 26px rgba(20,115,54,.16),inset 0 0 0 6px rgba(244,255,241,.72)}
+.intro-row{min-height:52px;display:flex;align-items:center;gap:10px;padding:6px 20px;color:#173524;font-size:14px;font-weight:850;white-space:nowrap}
+.intro-row:nth-child(2){margin-left:2ch}
+.intro-row:last-child{margin-left:auto}
+.intro-icon{width:34px;height:34px;flex:0 0 34px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:linear-gradient(145deg,#f2fbf2,#dff5e4);color:#119747;font-size:18px;box-shadow:inset 0 0 0 1px rgba(37,160,77,.09)}
+.visit-value{font-variant-numeric:tabular-nums}
+.support-btn{min-width:82px;height:38px;padding:0 18px;border:0;border-radius:12px;background:#ff6550;color:#fff;font-size:inherit;font-weight:850;box-shadow:0 5px 11px rgba(255,101,80,.23);transition:transform .15s ease,box-shadow .15s ease}
+.support-btn:hover{box-shadow:0 9px 18px rgba(255,101,80,.32)}.support-btn:active{transform:scale(.97)}
+.payment-dialog{width:min(500px,100%);text-align:center}.payment-dialog h2{margin:2px 0 12px;color:#12723f;font-size:24px}.payment-dialog img{margin:auto;object-fit:contain;max-height:calc(90vh - 132px)}
 
 /* ref2 视觉风格：标题、面板与结果区 */
 .page{padding-top:8px}
@@ -280,6 +331,10 @@ input[type="number"]{-moz-appearance:textfield}
   .subtitle{width:100%;margin-top:6px;padding:7px 12px;font-size:13px;line-height:1.45;white-space:normal}
   .rules-top{position:static;order:-1;align-self:flex-end;margin:0 0 1px;padding:7px 11px;font-size:13px;min-height:36px}
   .main{margin-top:2px;gap:10px}
+  .intro-card{display:grid;grid-template-columns:minmax(0,1fr) auto auto;margin:5px 0 10px;padding:4px 6px;border-width:1px;border-radius:18px;box-shadow:0 6px 16px rgba(20,115,54,.14),inset 0 0 0 4px rgba(244,255,241,.68)}
+  .intro-row{min-width:0;min-height:42px;gap:0;padding:4px 5px;font-size:12px;overflow:hidden}
+  .intro-icon{display:none}
+  .support-btn{min-width:54px;height:32px;padding:0 6px;border-radius:10px}
   .panel{border-radius:22px;padding:8px;border-width:1px;box-shadow:0 6px 16px rgba(20,115,54,.14),inset 0 0 0 5px rgba(244,255,241,.68)}
   .section{border-radius:18px;padding:14px 12px;margin-bottom:10px}
   .heading{gap:7px;margin-bottom:13px;font-size:21px;line-height:1.25}
@@ -294,19 +349,21 @@ input[type="number"]{-moz-appearance:textfield}
   .unit{font-size:15px}
 
   .card-row{
-    display:block;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 34px;
     min-height:0;
     padding:12px 0;
   }
   .card-main{display:flex;align-items:center;width:100%;gap:6px}
   .card-main>.ticket{flex:0 0 auto}
   .cardname{flex:0 1 auto;min-width:0;font-size:clamp(11px,3.6vw,15px);line-height:1.2;white-space:nowrap}
-  .stepper{flex:0 0 auto;width:max-content;height:44px;margin-left:auto;justify-content:flex-end}
-  .expiry{width:100%;margin-top:10px;justify-content:flex-start;gap:5px;white-space:normal;flex-wrap:wrap}
+  .stepper{flex:0 0 128px;width:128px;height:44px;margin-left:auto;justify-content:flex-end}
+  .expiry{grid-column:1;width:100%;margin-top:10px;justify-content:flex-start;gap:5px;white-space:normal;flex-wrap:wrap}
+  .delete-row-btn{grid-column:2;grid-row:1;align-self:center}
   .expiry .label{font-size:14px;margin-right:2px}
   .expiry .unit{font-size:14px}
-  .mini-btn{width:clamp(34px,10vw,44px);height:44px;font-size:21px}
-  .count-input{width:clamp(60px,17vw,70px);height:44px}
+  .mini-btn{width:34px;height:44px;font-size:21px}
+  .count-input{width:60px;height:44px}
   .time-input{width:56px;height:44px}
   .ticket{width:70px;height:42px;font-size:12px;transform:rotate(-5deg)}
   .ticket::before,.ticket::after{top:16px;width:9px;height:9px}
@@ -317,6 +374,7 @@ input[type="number"]{-moz-appearance:textfield}
   .priority ul{padding-left:18px;font-size:13px;line-height:1.65}
   .actions{display:grid;grid-template-columns:1fr;gap:10px;padding:0}
   .actions button{width:100%;min-height:54px;border-radius:15px;font-size:19px}
+  .strategy-box{padding:12px 10px}.strategy-options{grid-template-columns:1fr}.strategy-option span{min-height:46px;padding:7px 9px}.advanced-panel{align-items:flex-start;flex-direction:column}
 
   .hero{min-height:138px;padding:12px 9px;border-radius:18px;background-position:center center}
   .hero .label{font-size:16px}
@@ -333,6 +391,7 @@ input[type="number"]{-moz-appearance:textfield}
   .step-explain{padding:8px 10px;font-size:13px;overflow-wrap:anywhere}
   .step-explain strong{font-size:13px}
   .empty{padding:16px 12px;line-height:1.55}
+  .result-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.metric-value{font-size:17px}.day-heading{margin-left:-28px}
 
   .remaining-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
   .remaining-card{min-width:0;min-height:126px;padding:8px 5px 7px}
@@ -345,9 +404,13 @@ input[type="number"]{-moz-appearance:textfield}
   .dialog{width:100%;max-height:94vh;border-radius:17px;padding:18px 15px 14px}
   .dialog h2{font-size:23px}
   .dialog p,.dialog li{font-size:14px;line-height:1.65}
+  .add-card-options{grid-template-columns:1fr}
+  .add-card-option{padding:8px 10px}
+  .add-card-option img{width:42px;height:42px}
   .formula{padding:9px 10px}
   .image-dialog{width:100%;max-width:100%;padding:9px;border-radius:15px}
   .image-dialog img{max-height:calc(94vh - 68px)}
+  .payment-dialog img{max-height:calc(94vh - 124px)}
   .modal-actions{margin-top:10px}
   .primary-btn,.secondary-btn{min-height:44px}
   .foot{font-size:11px;line-height:1.5}
@@ -362,6 +425,7 @@ input[type="number"]{-moz-appearance:textfield}
   .remaining-icon{width:70px;height:70px}
   .field{gap:5px}
   .small-input{width:46px}
+  .add-card-btn{width:36px;height:36px;font-size:27px}
 }
 
 @media (max-width:330px){
@@ -380,6 +444,12 @@ input[type="number"]{-moz-appearance:textfield}
     <div class="subtitle">根据叠加规则与过期时间，自动规划优先消耗快过期卡的最优使用路径</div>
   </header>
 
+  <section class="intro-card" aria-label="网页信息">
+    <div class="intro-row"><span class="intro-icon" aria-hidden="true">▣</span><span>本次更新时间 2026-11-12</span></div>
+    <div class="intro-row"><span class="intro-icon" aria-hidden="true">▥</span><span>浏览量 <span class="visit-value" id="visitCount" aria-live="polite">加载中</span> 次</span></div>
+    <div class="intro-row"><button class="support-btn" id="showPayment" type="button">♥ 赞赏</button></div>
+  </section>
+
   <div class="main">
     <section class="panel">
       <div class="section">
@@ -389,6 +459,7 @@ input[type="number"]{-moz-appearance:textfield}
             <select class="select" id="currentMultiplier">
               <option value="0" selected>无</option>
               <option value="1.1">1.1 倍</option>
+              <option value="1.2">1.2 倍</option>
               <option value="1.3">1.3 倍</option>
               <option value="1.5">1.5 倍</option>
               <option value="2">2 倍</option>
@@ -399,20 +470,38 @@ input[type="number"]{-moz-appearance:textfield}
             <input class="small-input" id="hours" type="number" min="0" max="23" value="0"><span class="unit">小时</span>
             <input class="small-input" id="minutes" type="number" min="0" max="59" value="0"><span class="unit">分钟</span>
           </div>
+          <div class="field"><label for="todayChances">当天剩余翻倍卡机会：</label>
+            <input class="small-input" id="todayChances" type="number" min="0" max="10" value="10"><span class="unit">次</span>
+          </div>
         </div>
+        <p class="countdown-note">当前状态的剩余时间从填写完成时开始按真实时间倒计时，关闭网页后仍会继续。</p>
       </div>
 
       <div class="section inventory">
-        <h2 class="heading"><span class="icon">🧩</span><span>我拥有的翻倍卡</span></h2>
+        <h2 class="heading inventory-heading"><span class="icon">🧩</span><span>我拥有的翻倍卡</span><button class="add-card-btn" id="openAddCard" type="button" aria-label="添加翻倍卡" title="添加翻倍卡">+</button></h2>
         <div class="card-list" id="cardList"></div>
+        <p class="countdown-note">填写卡券过期时间后会立即开始真实倒计时；留空表示永不过期。</p>
+        <div class="strategy-box">
+          <div class="strategy-title">🎯 方案选择</div>
+          <div class="strategy-options">
+            <label class="strategy-option"><input type="radio" name="strategy" value="longest" checked><span>最长时长<br>优先最高倍率</span></label>
+            <label class="strategy-option"><input type="radio" name="strategy" value="save2"><span>节省两倍卡<br>仅使用 1 张收尾</span></label>
+            <label class="strategy-option"><input type="radio" name="strategy" value="daily2"><span>每天 2 倍收尾<br>跨天前保持 2 倍</span></label>
+          </div>
+          <button class="advanced-toggle" id="advancedToggle" type="button" aria-expanded="false">进阶选项 ▾</button>
+          <div class="advanced-panel" id="advancedPanel">
+            <label><input id="longOnly" type="checkbox">仅使用长期卡（不使用 5 分钟卡）</label>
+            <label>最多执行 <input class="small-input" id="maxDays" type="number" min="1" max="30" value="10"> 天</label>
+          </div>
+        </div>
         <div class="priority">
           <div class="title">📖 规则摘要</div>
           <ul>
             <li>方案除考虑叠加规则外，还会优先使用快过期的翻倍卡。</li>
-            <li>有 2 倍卡时，目标是最大化最终 2 倍时长。</li>
-            <li>每日切换次数有限（如每日最多 10 次）。</li>
-            <li>不同倍率卡切换时需要按规则折算，不能简单相加。</li>
-            <li>若最终 2 倍方案时长相同，则尽量减少卡券浪费、操作次数和跨天等待。</li>
+            <li>优先计算当前库存能达到的最高倍率，再最大化该倍率时长。</li>
+            <li>每日最多使用 10 张；首日按“当天剩余翻倍卡机会”计算。</li>
+            <li>不同倍率卡切换时需要按规则折算；当前倍率时长超过 45 天后不能继续叠加同倍率卡。</li>
+            <li>若结果相同，则优先快过期卡，并尽量减少卡券、等待和 2 倍卡消耗。</li>
           </ul>
         </div>
         <div class="actions">
@@ -426,10 +515,17 @@ input[type="number"]{-moz-appearance:textfield}
       <div class="section">
         <h2 class="heading"><span class="icon">🏆</span><span>最佳叠加方案</span></h2>
         <div class="hero">
-          <div class="label">最终获得 2 倍卡时长</div>
+          <div class="label" id="resultLabel">最终可获得的最高倍率与最长时长</div>
           <div class="number" id="resultDuration">—</div>
           <div class="desc">已综合考虑叠加规则、每日操作上限与卡券过期时间</div>
         </div>
+        <div class="result-metrics" id="resultMetrics">
+          <div class="metric"><span class="metric-value">—</span><span class="metric-label">执行天数</span></div>
+          <div class="metric"><span class="metric-value">—</span><span class="metric-label">使用卡券</span></div>
+          <div class="metric"><span class="metric-value">—</span><span class="metric-label">2倍卡消耗</span></div>
+          <div class="metric"><span class="metric-value">—</span><span class="metric-label">等待时间</span></div>
+        </div>
+        <div class="recommend-reason" id="recommendReason"></div>
         <div class="steps-title">🪴 推荐使用路径</div>
         <div class="timeline" id="timeline"><div class="empty">请输入你的倍卡库存与过期时间，然后点击“计算最佳方案”。</div></div>
       </div>
@@ -439,7 +535,38 @@ input[type="number"]{-moz-appearance:textfield}
       </div>
     </section>
   </div>
-  <div class="foot">桌面网页版原型 · 本地浏览器会自动记住你上次填入的参数</div>
+  <div class="foot">小红书号：538543887</div>
+</div>
+
+<div class="modal" id="addCardModal">
+  <div class="dialog add-card-dialog" role="dialog" aria-modal="true" aria-labelledby="addCardTitle">
+    <h2 id="addCardTitle">添加翻倍卡</h2>
+    <p>选择需要补充到库存中的卡券，可同时选择多种；已添加的卡券不会重复出现。</p>
+    <div class="add-card-options" id="addCardOptions"></div>
+    <div class="modal-actions">
+      <button class="secondary-btn" id="cancelAddCard" type="button">取消</button>
+      <button class="primary-btn" id="confirmAddCard" type="button">添加所选</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="deleteCardModal">
+  <div class="dialog delete-dialog" role="dialog" aria-modal="true" aria-labelledby="deleteCardTitle">
+    <h2 id="deleteCardTitle">删除翻倍卡</h2>
+    <p id="deleteCardMessage">确定删除这一种卡券吗？</p>
+    <div class="modal-actions">
+      <button class="secondary-btn" id="cancelDeleteCard" type="button">取消</button>
+      <button class="danger-btn" id="confirmDeleteCard" type="button">确认删除</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="paymentModal">
+  <div class="image-dialog payment-dialog" role="dialog" aria-modal="true" aria-labelledby="paymentTitle">
+    <h2 id="paymentTitle">感谢你的赞赏支持</h2>
+    <img src="payment.jpg" alt="赞赏收款码">
+    <div class="modal-actions"><button class="secondary-btn" id="closePayment" type="button">关闭</button></div>
+  </div>
 </div>
 
 <div class="modal" id="rulesModal">
@@ -447,10 +574,13 @@ input[type="number"]{-moz-appearance:textfield}
     <h2 id="rulesTitle">规则说明</h2>
     <ul>
       <li>倍卡切换时采用折算逻辑，不是简单叠加。</li>
-      <li>日切换次数有限，当前版本按“每日最多 10 次”处理。</li>
-      <li>若当前卡片填写了“剩余 X 天 X 小时”，算法会把过期时间纳入搜索；留空则视为永不过期。</li>
-      <li>存在倍率时长上限：1.1 倍 770 天、1.3 倍 263 天、1.5 倍 162 天、2 倍 84 天。</li>
-      <li>在最终 2 倍时长相同的情况下，会优先减少卡券浪费，并尽量利用快过期卡。</li>
+      <li>每日最多使用 10 张卡；第一天按你填写的“当天剩余翻倍卡机会”处理，次日恢复为 10 次。</li>
+      <li>当前状态与卡券过期时间从填写完成时立即开始真实倒计时，并以绝对时间保存；关闭网页后也会继续减少。</li>
+      <li>若某类卡填写了“剩余 X 天 X 小时”，该时间只约束最先过期的第一张；后续同类卡仍可参与计算，但按“过期时间未知”处理。实际用掉第一张后，建议按新显示的过期时间重新计算。</li>
+      <li>使用新卡前，当前状态需不超过对应上限：1.1 倍 770 天、1.2 倍 390 天、1.3 倍 263 天、1.5 倍 162 天、2 倍 45 天。一次使用后的结果可以越过上限，但路线必须在此结束，不能通过等待降到上限后继续换卡。</li>
+      <li>无论当前是哪一种倍率，只要当前时长已经超过 45 天，就不能继续使用同倍率卡；等于 45 天时仍允许再使用一次。同倍率限制不影响在接替前上限内切换到其他倍率。</li>
+      <li>每次接替换算后会舍去不足 1 分钟的部分，不进行四舍五入；若跨天刷新使用机会，真实等待时间会从当前有效期中扣除。</li>
+      <li>先比较最终倍率，再比较时长；结果相同时优先快过期卡，并减少卡券、等待与 2 倍卡消耗。</li>
     </ul>
     <div class="formula">折算公式：旧卡天数 × (旧倍数−1) ÷ (新倍数−1) + 新卡天数 = 新剩余有效期</div>
     <div class="modal-actions">
@@ -469,25 +599,64 @@ input[type="number"]{-moz-appearance:textfield}
 
 <script>
 const STORE_KEY = 'forest_double_card_calc_state_v1';
-const cardsTemplate = [
-  { id:'7d2',   name:'+7天 2倍',      short:'7天收好友2倍卡',    mul:2,   add:7*1440,  count:0, expD:null, expH:null, color:'#ff8a25', icon:'energy-2x.png' },
-  { id:'14d15', name:'+14天 1.5倍',   short:'14天收好友1.5倍卡', mul:1.5, add:14*1440, count:0, expD:null, expH:null, color:'#fa618c', icon:'energy-15x.png' },
-  { id:'7d15',  name:'+7天 1.5倍',    short:'7天收好友1.5倍卡',  mul:1.5, add:7*1440,  count:0, expD:null, expH:null, color:'#32b4f1', icon:'energy-15x.png' },
-  { id:'7d11',  name:'+7天 1.1倍',    short:'7天收好友1.1倍卡',  mul:1.1, add:7*1440,  count:0, expD:null, expH:null, color:'#69c938', icon:'energy-11x.png' },
-  { id:'5m15',  name:'+5分钟 1.5倍',  short:'收能量1.5倍卡',      mul:1.5, add:5,       count:0, expD:null, expH:null, color:'#fbbd20', icon:'energy-15x.png' },
-  { id:'5m13',  name:'+5分钟 1.3倍',  short:'收能量1.3倍卡',      mul:1.3, add:5,       count:0, expD:null, expH:null, color:'#21bedf', icon:'energy-13x.png' },
-  { id:'5m11',  name:'+5分钟 1.1倍',  short:'收能量1.1倍卡',      mul:1.1, add:5,       count:0, expD:null, expH:null, color:'#aa65e6', icon:'energy-11x.png' }
+const cardCatalog = [
+  { id:'14d2',  name:'+14天 2倍',     short:'14天收好友2倍卡',   mul:2,   add:14*1440, icon:'energy-2x.png',  color:'#F886AB' },
+  { id:'14d15', name:'+14天 1.5倍',   short:'14天收好友1.5倍卡', mul:1.5, add:14*1440, icon:'energy-15x.png', color:'#FE8D6F' },
+  { id:'14d13', name:'+14天 1.3倍',   short:'14天收好友1.3倍卡', mul:1.3, add:14*1440, icon:'energy-13x.png', color:'#FDC453' },
+  { id:'14d12', name:'+14天 1.2倍',   short:'14天收好友1.2倍卡', mul:1.2, add:14*1440, icon:'energy-12x.png', color:'#DFDD6C' },
+  { id:'14d11', name:'+14天 1.1倍',   short:'14天收好友1.1倍卡', mul:1.1, add:14*1440, icon:'energy-11x.png', color:'#A0DDE0' },
+  { id:'7d2',   name:'+7天 2倍',      short:'7天收好友2倍卡',    mul:2,   add:7*1440,  icon:'energy-2x.png',  color:'#F886AB' },
+  { id:'7d15',  name:'+7天 1.5倍',    short:'7天收好友1.5倍卡',  mul:1.5, add:7*1440,  icon:'energy-15x.png', color:'#FE8D6F' },
+  { id:'7d13',  name:'+7天 1.3倍',    short:'7天收好友1.3倍卡',  mul:1.3, add:7*1440,  icon:'energy-13x.png', color:'#FDC453' },
+  { id:'7d12',  name:'+7天 1.2倍',    short:'7天收好友1.2倍卡',  mul:1.2, add:7*1440,  icon:'energy-12x.png', color:'#DFDD6C' },
+  { id:'7d11',  name:'+7天 1.1倍',    short:'7天收好友1.1倍卡',  mul:1.1, add:7*1440,  icon:'energy-11x.png', color:'#A0DDE0' },
+  { id:'3d2',   name:'+3天 2倍',      short:'3天收好友2倍卡',    mul:2,   add:3*1440,  icon:'energy-2x.png',  color:'#F886AB' },
+  { id:'3d15',  name:'+3天 1.5倍',    short:'3天收好友1.5倍卡',  mul:1.5, add:3*1440,  icon:'energy-15x.png', color:'#FE8D6F' },
+  { id:'3d13',  name:'+3天 1.3倍',    short:'3天收好友1.3倍卡',  mul:1.3, add:3*1440,  icon:'energy-13x.png', color:'#FDC453' },
+  { id:'3d12',  name:'+3天 1.2倍',    short:'3天收好友1.2倍卡',  mul:1.2, add:3*1440,  icon:'energy-12x.png', color:'#DFDD6C' },
+  { id:'3d11',  name:'+3天 1.1倍',    short:'3天收好友1.1倍卡',  mul:1.1, add:3*1440,  icon:'energy-11x.png', color:'#A0DDE0' },
+  { id:'5m2',   name:'+5分钟 2倍',    short:'收能量2倍卡',      mul:2,   add:5,       icon:'energy-2x.png',  color:'#F886AB' },
+  { id:'5m15',  name:'+5分钟 1.5倍',  short:'收能量1.5倍卡',    mul:1.5, add:5,       icon:'energy-15x.png', color:'#FE8D6F' },
+  { id:'5m13',  name:'+5分钟 1.3倍',  short:'收能量1.3倍卡',    mul:1.3, add:5,       icon:'energy-13x.png', color:'#FDC453' },
+  { id:'5m12',  name:'+5分钟 1.2倍',  short:'收能量1.2倍卡',    mul:1.2, add:5,       icon:'energy-12x.png', color:'#DFDD6C' },
+  { id:'5m11',  name:'+5分钟 1.1倍',  short:'收能量1.1倍卡',    mul:1.1, add:5,       icon:'energy-11x.png', color:'#A0DDE0' }
 ];
-let cards = structuredClone(cardsTemplate);
-const caps = {1.1:770*1440, 1.3:263*1440, 1.5:162*1440, 2:84*1440};
+const defaultCardIds = ['14d15','7d2','7d15','7d11','5m15','5m13','5m11'];
+const oldDefaultCardIds = ['7d2','14d15','7d15','7d11','5m15','5m13','5m11'];
+const displayOrderIds = [
+  '14d2','7d2','3d2','5m2',
+  '14d15','7d15','3d15','5m15',
+  '14d13','7d13','3d13','5m13',
+  '14d12','7d12','3d12','5m12',
+  '14d11','7d11','3d11','5m11'
+];
+const selectableCardIds = [...displayOrderIds];
+const catalogById = new Map(cardCatalog.map(card => [card.id, card]));
+const catalogOrder = new Map(displayOrderIds.map((id, index) => [id, index]));
+function createCard(id, saved={}){
+  const base = catalogById.get(id);
+  if(!base) return null;
+  const expD = saved.expD === '' ? null : (saved.expD ?? null);
+  const expH = saved.expH === '' ? null : (saved.expH ?? null);
+  let expiresAt = saved.expiresAt != null && Number.isFinite(Number(saved.expiresAt)) ? Number(saved.expiresAt) : null;
+  if(expiresAt == null && (expD != null || expH != null)) expiresAt = Date.now() + ((Number(expD)||0)*1440 + (Number(expH)||0)*60) * 60000;
+  return { ...base, count:numericValue(saved.count, 0), expD, expH, expiresAt };
+}
+function sortCards(){ cards.sort((a,b) => catalogOrder.get(a.id) - catalogOrder.get(b.id)); }
+let cards = defaultCardIds.map(id => createCard(id));
+sortCards();
+const caps = {1.1:770*1440, 1.2:390*1440, 1.3:263*1440, 1.5:162*1440, 2:45*1440};
+const sameRateCap = 45*1440;
+const excessRate = multiplier => Math.round((multiplier-1)*10);
 const $ = id => document.getElementById(id);
+let currentEndsAt = null;
 
 function numericValue(v, fallback=0){
   if(v === '' || v == null || Number.isNaN(Number(v))) return fallback;
   return Math.max(0, Math.floor(Number(v) || 0));
 }
 function fmtMinutes(total){
-  total = Math.max(0, Math.round(total));
+  total = Math.max(0, Math.floor(total));
   const d = Math.floor(total / 1440);
   const h = Math.floor((total % 1440) / 60);
   const m = total % 60;
@@ -497,8 +666,55 @@ function fmtMinutes(total){
   return out;
 }
 function expiryMinutes(card){
-  if(card.expD == null && card.expH == null) return Infinity;
-  return (card.expD || 0) * 1440 + (card.expH || 0) * 60;
+  if(card.expiresAt == null) return Infinity;
+  return Math.max(0, Math.ceil((card.expiresAt - Date.now()) / 60000));
+}
+function currentRemainingMinutes(){
+  if($('currentMultiplier').value === '0') return 0;
+  if(currentEndsAt != null) return Math.max(0, Math.ceil((currentEndsAt - Date.now()) / 60000));
+  return numericValue($('days').value)*1440 + numericValue($('hours').value)*60 + numericValue($('minutes').value);
+}
+function splitMinutes(total){
+  total = Math.max(0, Math.ceil(total));
+  return {d:Math.floor(total/1440),h:Math.floor((total%1440)/60),m:total%60};
+}
+function syncCardDisplay(card, now=Date.now()){
+  if(card.expiresAt == null){ card.expD=null; card.expH=null; return; }
+  const hours = Math.max(0, Math.ceil((card.expiresAt-now)/3600000));
+  card.expD = Math.floor(hours/24);
+  card.expH = hours%24;
+}
+function setCurrentDeadlineFromInputs(){
+  if($('currentMultiplier').value === '0'){ currentEndsAt=null; return; }
+  const total = numericValue($('days').value)*1440 + numericValue($('hours').value)*60 + numericValue($('minutes').value);
+  currentEndsAt = total>0 ? Date.now() + total*60000 : null;
+}
+function setCardDeadlineFromInputs(card){
+  if(card.expD == null && card.expH == null){ card.expiresAt=null; return; }
+  card.expiresAt = Date.now() + ((card.expD||0)*1440 + (card.expH||0)*60)*60000;
+}
+function updateCountdownDisplays(){
+  const active = document.activeElement;
+  let stateExpired = false;
+  if($('currentMultiplier').value !== '0'){
+    const remaining = currentRemainingMinutes();
+    if(currentEndsAt != null && remaining <= 0){
+      $('currentMultiplier').value='0'; currentEndsAt=null; stateExpired=true;
+      applyCurrentStateLock();
+    }else if(!['days','hours','minutes'].includes(active?.id)){
+      const parts=splitMinutes(remaining);
+      $('days').value=parts.d; $('hours').value=parts.h; $('minutes').value=parts.m;
+    }
+  }
+  const now=Date.now();
+  cards.forEach((card,i)=>{
+    syncCardDisplay(card,now);
+    for(const kind of ['expD','expH']){
+      const input=document.querySelector(`[data-kind="${kind}"][data-i="${i}"]`);
+      if(input && input!==active) input.value=card[kind] ?? '';
+    }
+  });
+  if(stateExpired) saveState();
 }
 function sanitizeTextNumberInput(el, allowBlank=true){
   const raw = String(el.value ?? '').replace(/[^0-9]/g, '');
@@ -555,11 +771,17 @@ function energyBallSVG(multiplier){
 }
 function saveState(){
   const state = {
+    cardStateVersion: 3,
     currentMultiplier: $('currentMultiplier').value,
+    currentEndsAt,
     days: $('days').value,
     hours: $('hours').value,
     minutes: $('minutes').value,
-    cards: cards.map(c => ({count:c.count, expD:c.expD, expH:c.expH}))
+    todayChances: $('todayChances').value,
+    strategy: document.querySelector('input[name="strategy"]:checked')?.value || 'longest',
+    longOnly: $('longOnly').checked,
+    maxDays: $('maxDays').value,
+    cards: cards.map(c => ({id:c.id, count:c.count, expD:c.expD, expH:c.expH, expiresAt:c.expiresAt}))
   };
   localStorage.setItem(STORE_KEY, JSON.stringify(state));
 }
@@ -572,13 +794,23 @@ function loadState(){
     $('days').value = state.days ?? '0';
     $('hours').value = state.hours ?? '0';
     $('minutes').value = state.minutes ?? '0';
+    currentEndsAt = state.currentEndsAt != null && Number.isFinite(Number(state.currentEndsAt)) ? Number(state.currentEndsAt) : null;
+    if(currentEndsAt == null && $('currentMultiplier').value !== '0'){
+      currentEndsAt = Date.now() + (numericValue(state.days)*1440 + numericValue(state.hours)*60 + numericValue(state.minutes))*60000;
+    }
+    $('todayChances').value = state.todayChances ?? '10';
+    const savedStrategy = document.querySelector(`input[name="strategy"][value="${state.strategy || 'longest'}"]`);
+    if(savedStrategy) savedStrategy.checked = true;
+    $('longOnly').checked = Boolean(state.longOnly);
+    $('maxDays').value = state.maxDays ?? '10';
     if(Array.isArray(state.cards)){
-      cards = structuredClone(cardsTemplate).map((card, i) => ({
-        ...card,
-        count: numericValue(state.cards[i]?.count, 0),
-        expD: state.cards[i]?.expD === '' ? null : (state.cards[i]?.expD ?? null),
-        expH: state.cards[i]?.expH === '' ? null : (state.cards[i]?.expH ?? null)
-      }));
+      if(state.cardStateVersion >= 2 || state.cards.some(card => card?.id)){
+        cards = state.cards.map(saved => createCard(saved.id, saved)).filter(Boolean);
+      }else{
+        const legacy = new Map(oldDefaultCardIds.map((id, index) => [id, state.cards[index] || {}]));
+        cards = defaultCardIds.map(id => createCard(id, legacy.get(id)));
+      }
+      sortCards();
     }
     return true;
   }catch(err){
@@ -592,14 +824,19 @@ function applyCurrentStateLock(){
     $(id).disabled = none;
   });
   if(none){
+    currentEndsAt = null;
     $('days').value = '0';
     $('hours').value = '0';
     $('minutes').value = '0';
   }
 }
 function renderCardList(){
-  $('cardList').innerHTML = cards.map((card, i) => `
-    <div class="card-row">
+  cards.forEach(card=>syncCardDisplay(card));
+  $('cardList').innerHTML = cards.map((card, i) => {
+    const nextCard = cards[i + 1];
+    const groupEnd = nextCard && card.mul !== nextCard.mul;
+    return `
+    <div class="card-row${groupEnd ? ' group-end' : ''}" data-card-id="${card.id}">
       <div class="card-main">
         ${ticketHTML(card)}
         <div class="cardname">${card.name}</div>
@@ -616,8 +853,22 @@ function renderCardList(){
         <input class="time-input" type="text" inputmode="numeric" data-kind="expH" data-i="${i}" value="${card.expH ?? ''}">
         <span class="unit">小时</span>
       </div>
-    </div>`).join('');
+      <button class="delete-row-btn" type="button" data-delete-id="${card.id}" aria-label="删除${card.name}" title="删除此卡券">×</button>
+    </div>`;
+  }).join('');
   renderRemaining(cards.map(c => c.count));
+  updateStrategyAvailability();
+}
+function updateStrategyAvailability(){
+  const hasDouble=cards.some(card=>card.mul===2 && card.count>0);
+  for(const value of ['save2','daily2']){
+    const input=document.querySelector(`input[name="strategy"][value="${value}"]`);
+    input.disabled=!hasDouble;
+    input.closest('.strategy-option').title=hasDouble?'':'当前库存没有 2 倍卡';
+  }
+  if(!hasDouble && document.querySelector('input[name="strategy"]:checked')?.value!=='longest'){
+    document.querySelector('input[name="strategy"][value="longest"]').checked=true;
+  }
 }
 function renderRemaining(counts){
   $('remaining').innerHTML = cards.map((card, i) => `
@@ -634,7 +885,66 @@ function priorityHint(card){
   if(exp <= 14*1440) return 'soon';
   return null;
 }
+function renderAddCardOptions(){
+  const activeIds = new Set(cards.map(card => card.id));
+  $('addCardOptions').innerHTML = selectableCardIds.map(id => {
+    const card = catalogById.get(id);
+    const added = activeIds.has(id);
+    return `<label class="add-card-option ${added ? 'is-added' : ''}">
+      <input type="checkbox" value="${card.id}" ${added ? 'disabled' : ''}>
+      <img src="${card.icon}" alt="">
+      <span class="option-name">${card.name}</span>
+      ${added ? '<span class="added-mark">已添加</span>' : ''}
+    </label>`;
+  }).join('');
+}
+$('openAddCard').onclick = () => { renderAddCardOptions(); $('addCardModal').classList.add('open'); };
+$('cancelAddCard').onclick = () => $('addCardModal').classList.remove('open');
+$('confirmAddCard').onclick = () => {
+  const selectedIds = [...$('addCardOptions').querySelectorAll('input:checked')].map(input => input.value);
+  const activeIds = new Set(cards.map(card => card.id));
+  selectedIds.forEach(id => { if(!activeIds.has(id)) cards.push(createCard(id)); });
+  sortCards();
+  renderCardList();
+  saveState();
+  $('addCardModal').classList.remove('open');
+};
+$('addCardModal').onclick = e => { if(e.target === $('addCardModal')) $('addCardModal').classList.remove('open'); };
+let pendingDeleteCardId = null;
+function openDeleteCardModal(cardId){
+  const card = cards.find(item => item.id === cardId);
+  if(!card) return;
+  pendingDeleteCardId = card.id;
+  $('deleteCardMessage').textContent = `确定删除“${card.name}”这一种卡券吗？`;
+  $('deleteCardModal').classList.add('open');
+}
+$('cardList').addEventListener('contextmenu', e => {
+  const row = e.target.closest('.card-row');
+  if(!row) return;
+  e.preventDefault();
+  openDeleteCardModal(row.dataset.cardId);
+});
+function closeDeleteCardModal(){
+  pendingDeleteCardId = null;
+  $('deleteCardModal').classList.remove('open');
+}
+$('cancelDeleteCard').onclick = closeDeleteCardModal;
+$('confirmDeleteCard').onclick = () => {
+  if(!pendingDeleteCardId) return closeDeleteCardModal();
+  cards = cards.filter(item => item.id !== pendingDeleteCardId);
+  renderCardList();
+  saveState();
+  $('resultDuration').textContent = '—';
+  $('timeline').innerHTML = '<div class="empty">卡券种类已修改，请重新计算最佳方案。</div>';
+  closeDeleteCardModal();
+};
+$('deleteCardModal').onclick = e => { if(e.target === $('deleteCardModal')) closeDeleteCardModal(); };
 $('cardList').addEventListener('click', e => {
+  const deleteBtn = e.target.closest('button[data-delete-id]');
+  if(deleteBtn){
+    openDeleteCardModal(deleteBtn.dataset.deleteId);
+    return;
+  }
   const btn = e.target.closest('button[data-d]');
   if(!btn) return;
   const i = Number(btn.dataset.i);
@@ -650,145 +960,278 @@ $('cardList').addEventListener('input', e => {
   const i = Number(el.dataset.i);
   const parsed = sanitizeTextNumberInput(el, kind !== 'count');
   if(kind === 'count') cards[i].count = parsed ?? 0;
-  else cards[i][kind] = parsed;
+  else{
+    cards[i][kind] = parsed;
+    setCardDeadlineFromInputs(cards[i]);
+  }
+  if(kind==='count') updateStrategyAvailability();
   saveState();
 });
-$('currentMultiplier').addEventListener('change', () => { applyCurrentStateLock(); saveState(); });
-document.querySelectorAll('#days,#hours,#minutes').forEach(el => el.addEventListener('input', () => { sanitizeTextNumberInput(el, false); saveState(); }));
+$('currentMultiplier').addEventListener('change', () => {
+  applyCurrentStateLock();
+  if($('currentMultiplier').value !== '0' && currentEndsAt == null) setCurrentDeadlineFromInputs();
+  saveState();
+});
+document.querySelectorAll('#days,#hours,#minutes').forEach(el => el.addEventListener('input', () => {
+  sanitizeTextNumberInput(el, false); setCurrentDeadlineFromInputs(); saveState();
+}));
+document.querySelectorAll('#todayChances,#maxDays').forEach(el => el.addEventListener('input', () => { sanitizeTextNumberInput(el, false); saveState(); }));
+document.querySelectorAll('input[name="strategy"],#longOnly').forEach(el => el.addEventListener('change', saveState));
+$('advancedToggle').onclick = () => {
+  const open = $('advancedPanel').classList.toggle('open');
+  $('advancedToggle').setAttribute('aria-expanded', String(open));
+  $('advancedToggle').textContent = open ? '进阶选项 ▴' : '进阶选项 ▾';
+};
 $('resetBtn').onclick = () => {
   localStorage.removeItem(STORE_KEY);
-  cards = structuredClone(cardsTemplate);
+  cards = defaultCardIds.map(id => createCard(id));
+  sortCards();
   $('currentMultiplier').value = '0';
+  currentEndsAt = null;
   $('days').value = '0';
   $('hours').value = '0';
   $('minutes').value = '0';
+  $('todayChances').value = '10';
+  document.querySelector('input[name="strategy"][value="longest"]').checked = true;
+  $('longOnly').checked = false;
+  $('maxDays').value = '10';
   applyCurrentStateLock();
   renderCardList();
   $('resultDuration').textContent = '—';
+  $('resultLabel').textContent = '最终可获得的最高倍率与最长时长';
+  $('resultMetrics').innerHTML = '<div class="metric"><span class="metric-value">—</span><span class="metric-label">执行天数</span></div><div class="metric"><span class="metric-value">—</span><span class="metric-label">使用卡券</span></div><div class="metric"><span class="metric-value">—</span><span class="metric-label">2倍卡消耗</span></div><div class="metric"><span class="metric-value">—</span><span class="metric-label">等待时间</span></div>';
+  $('recommendReason').classList.remove('show');
   $('timeline').innerHTML = '<div class="empty">已重置。点击“计算最佳方案”开始搜索。</div>';
 };
 $('showRules').onclick = () => $('rulesModal').classList.add('open');
 $('closeRules').onclick = () => $('rulesModal').classList.remove('open');
 $('showRuleImage').onclick = () => $('ruleImageModal').classList.add('open');
 $('closeRuleImage').onclick = () => $('ruleImageModal').classList.remove('open');
+$('showPayment').onclick = () => $('paymentModal').classList.add('open');
+$('closePayment').onclick = () => $('paymentModal').classList.remove('open');
 $('rulesModal').onclick = e => { if(e.target === $('rulesModal')) $('rulesModal').classList.remove('open'); };
 $('ruleImageModal').onclick = e => { if(e.target === $('ruleImageModal')) $('ruleImageModal').classList.remove('open'); };
+$('paymentModal').onclick = e => { if(e.target === $('paymentModal')) $('paymentModal').classList.remove('open'); };
 
-function solve(){
+async function updateVisitCount(){
+  const output = $('visitCount');
+  try{
+    const response = await fetch('https://abacus.jasoncameron.dev/hit/ant-forest-rule-538543887/double-card-calculator', { cache:'no-store', mode:'cors' });
+    if(!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    const value = Number(data.value);
+    if(!Number.isFinite(value)) throw new Error('Invalid counter value');
+    output.textContent = Math.max(0,Math.floor(value)).toLocaleString('zh-CN');
+  }catch(error){
+    output.textContent = '暂不可用';
+    output.title = '浏览量服务暂时不可用，请稍后刷新重试';
+    console.warn('浏览量更新失败：', error);
+  }
+}
+
+async function solve(){
+  updateCountdownDisplays();
   const selected = Number($('currentMultiplier').value);
   const initialMul = selected === 0 ? 1 : selected;
-  const initialTime = selected === 0 ? 0 : ((numericValue($('days').value, 0) || 0) * 1440 + (numericValue($('hours').value, 0) || 0) * 60 + (numericValue($('minutes').value, 0) || 0));
-  if(selected !== 0 && initialTime > caps[initialMul]) throw new Error('当前剩余时间超过该倍率上限。');
+  const initialTime = selected === 0 ? 0 : currentRemainingMinutes();
+  const firstDayChances = Math.min(10, numericValue($('todayChances').value, 10));
+  const strategy = document.querySelector('input[name="strategy"]:checked')?.value || 'longest';
+  const longOnly = $('longOnly').checked;
+  const maxDays = Math.max(1, Math.min(30, numericValue($('maxDays').value, 10)));
   const limits = cards.map(expiryMinutes);
   const startCounts = cards.map(c => c.count || 0);
+  const expiredCards = cards.filter((c,i)=>startCounts[i]>0 && Number.isFinite(limits[i]) && limits[i]<=0).map(c=>c.name);
   const totalCount = startCounts.reduce((a,b) => a+b,0);
-  if(totalCount === 0) throw new Error('请先填写你拥有的翻倍卡数量。');
+  if(totalCount === 0 && initialMul === 1) throw new Error('请先填写你拥有的翻倍卡数量。');
 
   const now = new Date();
-  const midnightGap = 24*60 - now.getHours()*60 - now.getMinutes();
-  const maxMoves = Math.min(36, totalCount);
-  let beam = [{ m: initialMul, t: initialTime, elapsed: 0, usedToday: 0, counts: startCounts, steps: [], spent: 0, wastePenalty:0 }];
-  let best = selected === 2 ? beam[0] : null;
+  const nextDay = new Date(now); nextDay.setHours(24,0,0,0);
+  const midnightGap = Math.max(1,Math.ceil((nextDay-now)/60000));
+  const maxElapsed = midnightGap + (maxDays - 1) * 1440;
+  const start = {m:initialMul,t:initialTime,elapsed:0,remaining:firstDayChances,usedOnDay:0,counts:startCounts,knownMask:0,parent:null,action:null,spent:0,twoUsed:0,urgentUsed:0,expirySlack:0,waited:0};
+  const initialBlockedByCap = initialMul>1 && initialTime>caps[initialMul];
+  const stack=[start],seen=new Set();
+  let best=initialMul>1?start:null,visited=0,complete=true;
+  const started=performance.now(),MAX_VISITED=1500000,MAX_MS=20000;
 
-  function score(s){
-    let future = 0;
+  function nextMidnight(elapsed){
+    if(elapsed < midnightGap) return midnightGap;
+    return midnightGap + (Math.floor((elapsed-midnightGap)/1440)+1)*1440;
+  }
+  function crossesMidnight(from,to){ return nextMidnight(from)<=to; }
+  function isBetter(a,b){
+    if(!b) return true;
+    if(a.m!==b.m) return a.m>b.m;
+    if(a.t!==b.t) return a.t>b.t;
+    if(strategy==='save2' && a.twoUsed!==b.twoUsed) return a.twoUsed<b.twoUsed;
+    if(a.urgentUsed!==b.urgentUsed) return a.urgentUsed>b.urgentUsed;
+    if(a.expirySlack!==b.expirySlack) return a.expirySlack<b.expirySlack;
+    if(a.spent!==b.spent) return a.spent<b.spent;
+    if(a.waited!==b.waited) return a.waited<b.waited;
+    return a.twoUsed<b.twoUsed;
+  }
+  function consider(s){ if(s.m>1 && isBetter(s,best)) best=s; }
+  function waitState(s,to,reason){
+    if(to<=s.elapsed || to>=maxElapsed) return null;
+    if(strategy==='daily2' && s.usedOnDay>0 && crossesMidnight(s.elapsed,to) && s.m!==2) return null;
+    const wait=to-s.elapsed,active=s.m>1 && s.t>wait,crossed=crossesMidnight(s.elapsed,to);
+    const m=active?s.m:1,t=active?s.t-wait:0;
+    return {...s,m,t,elapsed:to,remaining:crossed?10:s.remaining,usedOnDay:crossed?0:s.usedOnDay,waited:s.waited+wait,parent:s,action:{type:'wait',from:s.elapsed,to,wait,reason,time:t,m}};
+  }
+  function futureBound(s){
+    let maxMul=s.m,energy=s.m>1?s.t*(s.m-1):0,rounding=0;
     for(let i=0;i<cards.length;i++){
-      if(s.counts[i] <= 0 || s.elapsed >= limits[i]) continue;
-      const card = cards[i];
-      future += Math.min(2, s.counts[i]) * card.add * Math.max(card.mul-1, .05) * 0.28;
-      if(Number.isFinite(limits[i]) && limits[i] - s.elapsed < 2*1440) future += 120;
+      const c=cards[i];
+      if(!s.counts[i] || (longOnly && c.add<1440)) continue;
+      const finite=Number.isFinite(limits[i]);
+      const firstKnown=finite && !(s.knownMask&(1<<i));
+      if(firstKnown && s.elapsed>=limits[i]) continue;
+      const usable=s.counts[i];
+      maxMul=Math.max(maxMul,c.mul);
+      energy+=usable*c.add*(c.mul-1);
+      rounding+=usable*.5;
     }
-    const target = Math.min(caps[2], s.m === 2 ? s.t : s.m === 1 ? 0 : s.t * (s.m - 1));
-    return target + future - s.elapsed * .05 - s.spent * 3 - s.wastePenalty * 8;
+    return {maxMul,energy:energy+rounding};
   }
-  function consider(s){
-    if(s.m !== 2) return;
-    if(!best || s.t > best.t + 1e-6 || (Math.abs(s.t - best.t) < 1e-6 && (s.wastePenalty < best.wastePenalty || s.spent < best.spent))) best = s;
+  function orderRank(i,s){
+    const c=cards[i],finite=Number.isFinite(limits[i]) && !(s.knownMask&(1<<i));
+    const urgent=finite?Math.max(0,limits[i]-s.elapsed):Infinity;
+    const group=c.mul===1.5?0:(c.mul===2?4:(c.add>=1440?1:(c.mul===1.1?3:2)));
+    return [finite?0:1,urgent,group,-c.add,i];
+  }
+  function compareRank(a,b,s){
+    const x=orderRank(a,s),y=orderRank(b,s);
+    for(let i=0;i<x.length;i++) if(x[i]!==y[i]) return x[i]-y[i];
+    return 0;
   }
 
-  for(let depth=0; depth<maxMoves; depth++){
-    const next=[];
-    for(const s of beam){
-      for(let i=0;i<cards.length;i++){
-        if(s.counts[i] <= 0) continue;
-        if(s.elapsed >= limits[i]) continue;
-        if(s.usedToday >= 10) continue;
-        const c = cards[i];
-        if(s.m !== 1 && s.t > 45*1440 && (s.m === c.mul || s.m === 2)) continue;
-        let t;
-        if(s.m === 1 || s.t === 0) t = c.add;
-        else t = s.t * (s.m - 1) / (c.mul - 1) + c.add;
-        if(t > caps[c.mul] + 1e-6) continue;
-        const counts = s.counts.slice(); counts[i]--;
-        const bonusSoon = Number.isFinite(limits[i]) && limits[i] - s.elapsed <= 12*60 ? -1 : 0;
-        const ns = { m:c.mul, t, elapsed:s.elapsed, usedToday:s.usedToday+1, counts, steps:s.steps.concat([{ type:'use', i, prior:s.m, after:c.mul, at:s.elapsed, time:t }]), spent:s.spent+1, wastePenalty:s.wastePenalty + bonusSoon };
-        next.push(ns); consider(ns);
-      }
-      if(s.usedToday > 0 && s.elapsed < 10*1440){
-        const nextMidnight = s.elapsed===0 ? midnightGap : midnightGap + Math.ceil((s.elapsed - midnightGap + 1)/1440)*1440;
-        const wait = nextMidnight - s.elapsed;
-        if(wait > 0 && s.t > wait){
-          const ns = { ...s, t:s.t-wait, elapsed:nextMidnight, usedToday:0, steps:s.steps.concat([{ type:'wait', at:nextMidnight, time:s.t-wait }]) };
-          next.push(ns); consider(ns);
-        }
-      }
+  while(stack.length){
+    const s=stack.pop();
+    consider(s);
+    const key=[s.m,s.t,s.elapsed,s.remaining,s.usedOnDay,s.knownMask,s.counts.join(',')].join('|');
+    if(seen.has(key)) continue;
+    seen.add(key); visited++;
+    if(visited%3000===0){
+      $('calculate').textContent=`⏳ 已检查 ${visited.toLocaleString()} 条路径`;
+      await new Promise(resolve=>setTimeout(resolve,0));
+      if(visited>=MAX_VISITED || performance.now()-started>MAX_MS){ complete=false; break; }
     }
-    if(!next.length) break;
-    const dedup = new Map();
-    for(const s of next){
-      const key = [s.m, Math.round(s.t/5), Math.floor(s.elapsed/1440), s.usedToday, s.counts.join(',')].join('|');
-      const old = dedup.get(key);
-      if(!old || score(s) > score(old)) dedup.set(key, s);
+
+    if(best){
+      const bound=futureBound(s);
+      if(bound.maxMul<best.m) continue;
+      if(bound.maxMul===best.m && bound.energy/(best.m-1)<best.t) continue;
     }
-    beam = [...dedup.values()].sort((a,b)=>score(b)-score(a)).slice(0,700);
+    if(s.m>1 && s.t>caps[s.m]){
+      continue;
+    }
+    if(strategy==='save2' && s.twoUsed>=1) continue;
+    if(s.remaining<=0){
+      const waited=waitState(s,nextMidnight(s.elapsed),'midnight');
+      if(waited) stack.push(waited);
+      continue;
+    }
+    if(strategy==='daily2' && s.m===2 && s.usedOnDay>0){
+      const closeDay=waitState(s,nextMidnight(s.elapsed),'midnight');
+      if(closeDay) stack.push(closeDay);
+    }
+
+    const candidates=[];
+    for(let i=0;i<cards.length;i++){
+      const c=cards[i];
+      if(s.counts[i]<=0 || (longOnly && c.add<1440)) continue;
+      const finite=Number.isFinite(limits[i]);
+      const firstKnown=finite && !(s.knownMask&(1<<i));
+      if(firstKnown && s.elapsed>=limits[i]) continue;
+      if(s.m===c.mul && s.t>sameRateCap) continue;
+      candidates.push(i);
+    }
+    candidates.sort((a,b)=>compareRank(a,b,s));
+    for(let ci=candidates.length-1;ci>=0;ci--){
+      const i=candidates[ci],c=cards[i],finite=Number.isFinite(limits[i]),firstKnown=finite && !(s.knownMask&(1<<i));
+      let t;
+      if(s.m===1 || s.t===0) t=c.add;
+      else if(s.m===c.mul) t=s.t+c.add;
+      else t=Math.floor(s.t*excessRate(s.m)/excessRate(c.mul)+c.add+1e-9);
+      const counts=s.counts.slice(); counts[i]--;
+      const slack=firstKnown?Math.max(0,limits[i]-s.elapsed):0;
+      const ns={m:c.mul,t,elapsed:s.elapsed,remaining:s.remaining-1,usedOnDay:s.usedOnDay+1,counts,knownMask:firstKnown?(s.knownMask|(1<<i)):s.knownMask,parent:s,action:{type:'use',i,prior:s.m,after:c.mul,at:s.elapsed,time:t,expiryKnown:firstKnown},spent:s.spent+1,twoUsed:s.twoUsed+(c.mul===2?1:0),urgentUsed:s.urgentUsed+(firstKnown?1:0),expirySlack:s.expirySlack+slack,waited:s.waited};
+      stack.push(ns);
+    }
+  }
+  if(best){
+    const steps=[];
+    for(let cursor=best;cursor?.action;cursor=cursor.parent) steps.push(cursor.action);
+    steps.reverse();
+    best={...best,steps,strategy,midnightGap,complete,visited,initialMul,initialTime,initialBlockedByCap,expiredCards};
+    best.unknownExpiry=cards.some((c,i)=>Number.isFinite(limits[i]) && (best.knownMask&(1<<i)) && best.counts[i]>0);
   }
   return best;
 }
 function renderTimeline(result){
   if(!result){
+    $('resultLabel').textContent = '计算结果';
     $('resultDuration').textContent = '无可行方案';
-    $('timeline').innerHTML = '<div class="empty">当前卡券与限制条件下，暂未找到可行的 2 倍候选路径。你可以检查倍率上限、库存或过期时间。</div>';
+    $('timeline').innerHTML = '<div class="empty">当前库存、过期时间与所选方案下没有找到可执行路径。可检查首日剩余机会、最多执行天数或方案限制。</div>';
+    $('recommendReason').classList.remove('show');
     renderRemaining(cards.map(c => c.count));
     return;
   }
+  $('resultLabel').textContent = `最终获得 ${result.m} 倍卡时长`;
   $('resultDuration').textContent = fmtMinutes(result.t);
   renderRemaining(result.counts);
+  const useSteps = result.steps.filter(s=>s.type==='use');
+  const waitSteps = result.steps.filter(s=>s.type==='wait');
+  const dayFor = at => at < result.midnightGap ? 1 : 2 + Math.floor((at-result.midnightGap)/1440);
+  const executeDays = useSteps.length ? Math.max(...useSteps.map(s=>dayFor(s.at))) : 0;
+  $('resultMetrics').innerHTML = `<div class="metric"><span class="metric-value">${executeDays}</span><span class="metric-label">执行天数</span></div><div class="metric"><span class="metric-value">${useSteps.length}</span><span class="metric-label">使用卡券</span></div><div class="metric"><span class="metric-value">${result.twoUsed}</span><span class="metric-label">2倍卡消耗</span></div><div class="metric"><span class="metric-value">${fmtMinutes(result.waited)}</span><span class="metric-label">等待时间</span></div>`;
+  const strategyText = result.strategy==='save2'?'仅使用 1 张 2 倍卡，并在路线最后收尾。':result.strategy==='daily2'?'跨天前要求当天操作以 2 倍状态收尾。':'优先最高可达倍率，再最大化该倍率时长。';
+  const startText=result.initialMul===1?'无当前翻倍状态':`${result.initialMul} 倍 ${fmtMinutes(result.initialTime)}`;
+  $('recommendReason').innerHTML = `计算起点：<strong>${startText}</strong><br>推荐依据：${strategyText}${result.initialBlockedByCap?`<br>⚠ 当前 ${result.initialMul} 倍时长已超过接替前 ${fmtMinutes(caps[result.initialMul])} 上限，不能再使用任何卡券；结果保留当前状态。`:''}${result.expiredCards?.length?`<br>⚠ 以下卡券填写为 0 天 0 小时，已按“过期”排除：${result.expiredCards.join('、')}。永不过期请将天数和小时都留空。`:''}${result.complete===false?' <br>⚠ 库存组合较大，本次已达到搜索保护上限；这是当前找到的最好路线，但尚未证明绝对最优。':''}${result.unknownExpiry?' <br>⚠ 已使用某类已填写过期时间的第一张卡；其余同类卡过期时间未知，请用掉后更新库存并重新计算。':''}`;
+  $('recommendReason').classList.add('show');
   if(!result.steps.length){
-    $('timeline').innerHTML = '<div class="empty">当前已经处于 2 倍状态，且在当前候选搜索下未找到更优的合法路线。</div>';
+    $('timeline').innerHTML = result.initialBlockedByCap
+      ? `<div class="empty">当前状态已经超过该倍率的接替前上限，不能继续使用新卡，也不能通过等待降到上限后再接替。</div>`
+      : result.expiredCards?.length
+      ? `<div class="empty">没有使用任何库存卡券：填写为“0 天 0 小时”的卡券已被判定为过期。若卡券永不过期，请将该行的天数、小时两个输入框都清空后重新计算。</div>`
+      : `<div class="empty">无需使用新卡；当前状态已经是本次条件下的最佳结果。</div>`;
     return;
   }
-  let html = '';
-  let stepIndex = 0;
-  const useSteps = result.steps.filter(s => s.type === 'use').length;
+  let html='',openDay=0,stepIndex=0;
   for(const step of result.steps){
-    if(step.type === 'wait'){
-      html += `<div class="step"><div class="marker">⏱</div><div class="step-main"><span class="when">跨天等待：</span><span>等待到第 ${Math.floor((step.at+1)/1440)+1} 天，刷新当日可操作次数</span><span class="hint alt">跨天操作</span></div><div class="step-explain">等待期间倍卡时长自然消耗，当前剩余 <strong>${fmtMinutes(step.time)}</strong></div></div>`;
+    const day = dayFor(step.type==='wait'?step.from:step.at);
+    if(day!==openDay){
+      if(openDay) html += '</div>';
+      openDay=day;
+      html += `<div class="day-group"><div class="day-heading">第 ${day} 天 <small>当天按可用次数顺序执行</small></div>`;
+    }
+    if(step.type==='wait'){
+      const capText = step.reason==='cap'?'等待当前倍率降至接替前上限':'等待到次日，刷新 10 次使用机会';
+      html += `<div class="step"><div class="marker">⏱</div><div class="step-main"><span class="when">等待：</span><span>${capText}</span><span class="hint alt">真实扣时</span></div><div class="step-explain">等待 <strong>${fmtMinutes(step.wait)}</strong>，之后为 <strong>${step.m===1?'无翻倍状态':`${step.m} 倍 ${fmtMinutes(step.time)}`}</strong></div></div>`;
       continue;
     }
-    stepIndex += 1;
-    const card = cards[step.i];
-    const mode = priorityHint(card);
-    const words = ['立即使用','随后使用','在合适时间使用','再使用','最后使用'];
-    let badge = '<span class="hint ok">最大化时长</span>';
-    if(mode === 'priority') badge = '<span class="hint">优先过期卡</span>';
-    else if(stepIndex === useSteps && card.mul === 2) badge = '<span class="hint ok">最大化时长</span>';
-    else if(step.prior !== card.mul && step.prior !== 1) badge = '<span class="hint rule">规则约束</span>';
-    const expText = (card.expD == null && card.expH == null) ? '永不过期' : `剩余 ${(card.expD||0)}天 ${(card.expH||0)}小时`;
+    stepIndex++;
+    const card=cards[step.i],mode=step.expiryKnown?priorityHint(card):null;
+    let badge='<span class="hint ok">延长时长</span>';
+    if(mode) badge='<span class="hint">优先快过期</span>';
+    else if(step.prior!==card.mul && step.prior!==1) badge='<span class="hint rule">倍率折算</span>';
+    const expText=(card.expD==null&&card.expH==null)?'永不过期':(step.expiryKnown?`首张剩余 ${(card.expD||0)}天 ${(card.expH||0)}小时`:'后续同类卡过期时间未知');
     let explain;
-    if(step.prior === 1) explain = `启用 ${card.name} ×1 → 当前为 <strong>${card.mul} 倍 ${fmtMinutes(step.time)}</strong>`;
-    else if(step.prior === card.mul) explain = `继续叠加 ${card.name} ×1 → 当前为 <strong>${card.mul} 倍 ${fmtMinutes(step.time)}</strong>`;
-    else explain = `将 ${step.prior} 倍折算并接续使用 ${card.name} ×1 → 当前为 <strong>${card.mul} 倍 ${fmtMinutes(step.time)}</strong>`;
-    html += `<div class="step"><div class="marker">${stepIndex}</div><div class="step-main"><span class="when">${words[Math.min(stepIndex-1, words.length-1)]}：</span><span class="mini-card">${ticketHTML(card, true)} <span>${card.name}</span> <span class="count-green">×1</span></span><span>（${expText}）</span>${badge}</div><div class="step-explain">${explain}</div></div>`;
+    if(step.prior===1) explain=`启用 ${card.name} ×1 → 当前为 <strong>${card.mul} 倍 ${fmtMinutes(step.time)}</strong>`;
+    else if(step.prior===card.mul) explain=`同倍率直接增加时长 → 当前为 <strong>${card.mul} 倍 ${fmtMinutes(step.time)}</strong>`;
+    else explain=`将 ${step.prior} 倍时长折算后接续 ${card.name} → 当前为 <strong>${card.mul} 倍 ${fmtMinutes(step.time)}</strong>`;
+    html += `<div class="step"><div class="marker">${stepIndex}</div><div class="step-main"><span class="mini-card${card.mul===2?' is-double':''}">${ticketHTML(card,true)} <span>${card.name}</span> <span class="count-green">×1</span></span><span>（${expText}）</span>${badge}</div><div class="step-explain">${explain}</div></div>`;
   }
-  $('timeline').innerHTML = html;
+  if(openDay) html += '</div>';
+  $('timeline').innerHTML=html;
 }
-$('calculate').onclick = () => {
+$('calculate').onclick = async () => {
   const btn = $('calculate');
   btn.disabled = true;
   btn.textContent = '⏳ 正在搜索候选路径';
   saveState();
-  setTimeout(() => {
-    try{ renderTimeline(solve()); }
+  setTimeout(async () => {
+    try{ renderTimeline(await solve()); }
     catch(err){ alert(err.message || '计算失败'); }
     finally{ btn.disabled = false; btn.textContent = '⚡ 计算最佳方案'; }
   }, 40);
@@ -797,6 +1240,10 @@ $('calculate').onclick = () => {
 loadState();
 applyCurrentStateLock();
 renderCardList();
+updateCountdownDisplays();
+saveState();
+updateVisitCount();
+setInterval(updateCountdownDisplays,15000);
 </script>
 </body>
 </html>
